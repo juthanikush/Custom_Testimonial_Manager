@@ -1,5 +1,7 @@
 <?php
-include 'wp-content/plugins/Testimonial/testimonial-submission.php';
+include('testimonial-submission.php');
+include('Display-testimonials.php');
+
 /**
  * Plugin Name: Testimonial
  * Plugin URI: https://www.google.com/
@@ -12,7 +14,7 @@ include 'wp-content/plugins/Testimonial/testimonial-submission.php';
  */
 
  //Creating Custom Post Types for Testimonials
-function my_custom_post_type() {
+function my_testimonials_post_type() {
     $labels = array(
         'name'               => 'Testimonials',
         'singular_name'      => 'Testimonials',
@@ -35,13 +37,19 @@ function my_custom_post_type() {
         'supports'            => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
         'taxonomies'          => array(),
         'menu_icon'           => 'dashicons-testimonial', // Customize the menu icon if desired
-        'rewrite'             => array( 'slug' => 'testimonials' ), // Customize the URL slug if desired
+        'rewrite'             => array( 'slug' => 'testimonial' ), // Customize the URL slug if desired
     );
   
-    register_post_type( 'custom_post_type', $args );
+    register_post_type( 'testimonial', $args );
 }
-add_action( 'init', 'my_custom_post_type' );
+add_action( 'init', 'my_testimonials_post_type' );
 
+//add css
+function Testimonials_load_styles(){
+    wp_enqueue_style('style',plugins_url('css/style.css',__FILE__));
+}
+add_action('wp_enqueue_scripts', 'Testimonials_load_styles');
+    
 
 function process_testimonial_submission() {
     if (isset($_POST['testimonial_submit'])) {
@@ -57,6 +65,18 @@ function process_testimonial_submission() {
 
         $post_id = wp_insert_post($post_data);
 
+
+        // $fields_list=[
+        //     'testimonial_author',
+        //     'testimonial_content'
+        // ];
+        // foreach($fields_list as $field){
+        //     if(array_key_exists($field,$_POST)){
+        //         update_post_meta($post_id,$field,sanitize_text_field($_POST[$field]));
+        //     }
+        // }
+
+
         if ($post_id) {
             // Display success message or redirect to a thank you page
             echo 'Thank you for submitting your testimonial!';
@@ -67,3 +87,5 @@ function process_testimonial_submission() {
     }
 }
 add_action('init', 'process_testimonial_submission');
+
+

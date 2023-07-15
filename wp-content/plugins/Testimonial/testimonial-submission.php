@@ -19,4 +19,7 @@ function render_testimonial_submission_form() {
     return ob_get_clean();
 }
 add_shortcode('testimonial_submission_form', 'render_testimonial_submission_form');
+
+
+
 ?>

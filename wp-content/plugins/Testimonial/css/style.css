@@ -1,0 +1,61 @@
+.carousel {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-slide {
+    display: flex;
+    width: 100%;
+  }
+  
+  .carousel-item {
+    flex: 0 0 100%; /* Adjust this value to change the visible items per slide */
+  }
+  
+  /* Optional: Add navigation buttons */
+  .carousel-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    cursor: pointer;
+  }
+  
+  /* Optional: Add animations */
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes slide-reverse {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
+    grid-gap: 10px; /* Adjust the gap between grid items */
+  }
+  
+  .grid-item {
+    background-color: #e0e0e0;
+    padding: 10px;
+  }
